@@ -1,0 +1,8 @@
+Nmap commands for Pen Testing
+
+To discover live hosts:
+nmap -Pn -n -sS -p 21-23,25,53,111,137,139,445,80,443,3389,5900,8080,8443 --min-rtt-timeout --max-retries 1 --max-scan-delay 0 -oA discovery-Scan -vvv --open -iL <host list>
+
+To get host list:
+cat discovery-scan.gnmap | grep "open" | cut -d "" -f 2 > discovery_ips.txt
+

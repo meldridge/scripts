@@ -1,0 +1,8 @@
+tcpdump Capture from eth0, write to <filename>, line-buffered also output to stdout
+tcpdump -nn -l -U -w - host 192.168.1.3 | tee $(date +"%Y%m%d_%H%M")_<capture description>.pcap | tcpdump -nn -r - -l -U
+
+EyeWitness scan all hosts on port 80:
+~/git/EyeWitness/EyeWitness.py --web -f p80-hosts.txt -d p80-$(date +"%Y%m%d_%H%M")
+
+Discovering Domain Controllers/Master Browers in Wireshark:
+Display filter: "browser.command == 0x0f")

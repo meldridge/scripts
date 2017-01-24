@@ -1,0 +1,18 @@
+nmap host discovery  (no point outputting txt/xml):
+# nmap -n -v -sn -oG nmap_pingscan_<IP range>_$(date +"%Y%m%d-%H%M").gnmap "<IP range>"/"-iL ips.txt"
+
+nmap webserver scan:
+# nmap -n -v -sS -p 80,443 -oA nmap_p80-p443_<IP range>_$(date +"%Y%m%d-%H%M") "<IP range>"/"-iL ips.txt"
+
+nmap topX port scan (TCP only), with version and OS detection
+# nmap -n -v -sSV -O --top-ports=25 -oA nmap_sSVO-top25_<IP range>_$(date +"%Y%m%d-%H%M") "<IP range>"/"-iL ips.txt"
+
+Run EyeWitness on all discovered webservers:
+
+Running all NSE HTTP scripts on discovered webservers:
+
+Running dirb on all discovered webservers:
+dirb URL_base -o output-file
+
+Running nikto on all discovered webservers:
+nikto -h webserver-p80.txt

