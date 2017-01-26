@@ -6,3 +6,12 @@ EyeWitness scan all hosts on port 80:
 
 Discovering Domain Controllers/Master Browers in Wireshark:
 Display filter: "browser.command == 0x0f")
+
+UAC Bypass:
+exploit/windows/local/bypassuac
+TECHNIQUE = PSH seems more reliable
+Set payload to reverse HTTPS
+
+Hashdump - note need to be in a x64 process before this works
+
+

