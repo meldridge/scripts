@@ -10,8 +10,10 @@ echo ""
 while read email; do
 
   encodedEmail=${email//@/%40}
-  url="https://haveibeenpwned.com/api/v2/breachedaccount/$encodedEmail"
+  url="https://haveibeenpwned.com/api/v2/breachedaccount/$encodedEmail?truncateResponse=true"
   response=$(curl --write-out %\{http_code\} --silent --output /dev/null $url)
+  
+  sleep 1
 
   echo -n "Checking if $email has been pwned: "
   if [ "$response" == "200" ]; then
