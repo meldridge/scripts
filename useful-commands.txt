@@ -22,4 +22,3 @@ SSH Port Forwarding:
 This connects to server, and then sets the server's port 8080 map to the local port 80 over the SSH tunnel
 # ssh root@server -R 8080:localhost:80
 
-
