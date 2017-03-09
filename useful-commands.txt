@@ -14,4 +14,12 @@ Set payload to reverse HTTPS
 
 Hashdump - note need to be in a x64 process before this works
 
+OpenSSL s_client:
+printf "GET / HTTP/1.1\r\nHost: <domainname>\r\n\r\n" | openssl s_client -connect 202.155.178.54:443 -servername <domainname> -ign_eof
+> ign_eof allows printf piping
+
+SSH Port Forwarding:
+This connects to server, and then sets the server's port 8080 map to the local port 80 over the SSH tunnel
+# ssh root@server -R 8080:localhost:80
+
 
