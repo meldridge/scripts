@@ -1,1 +1,1 @@
-route add -net 192.168.7.0 gw 10.1.0.250 netmask 255.255.255.0
+route add -net 10.1.0.0 netmask 255.255.255.0 gw 10.8.0.250
