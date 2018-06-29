@@ -12,11 +12,10 @@ do
         then
                 echo -en "\rWaiting for ssh connection..."
         else
-                # Run strace
                 echo -e "\n"
                 strace -p $PID -e read
-
-                # Sleep a bit
-                sleep 1
         fi
+
+        # Sleep a bit
+        sleep 1
 done
