@@ -21,4 +21,5 @@ echo "Waiting for ssh connections from $USERNAME..."
 echo "Ctrl+C to exit"
 
 # Trace the sshd process for write events, and grep for the username
-strace -f -p $PID -e write 2>&1 | grep -B 2 -A 20 $USERNAME
+# NOTE: grep context may need tweaking
+strace -f -p $PID -e write 2>&1 | grep -B 2 -A 10 $USERNAME
